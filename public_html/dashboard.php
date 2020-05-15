@@ -1,3 +1,11 @@
+<?php
+
+include_once('./database/constants.php');
+if (!isset($_SESSION["userid"])) {
+	header('location:'.DOMAIN.'/');
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,18 +16,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit-no">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+	 
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js">
+    	
+    </script>
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="./js/main.js"></script>
+
+    <script type="text/javascript" src="js/main.js"></script>
+   
+    
 </head>
 <body>
+	<?php include_once("./database/constants.php")?>
 
 	<?php include("./templates/navbar.php"); ?>
 	<br>
@@ -30,9 +44,9 @@
 				  <img src="images/user_dashboard.png" class="card-img-top mx-auto" style="width:75%;margin-top:5%" alt="user logged in">
 				  <div class="card-body">
 				    <h5 class="card-title">Profile Info</h5>				    
-				    <p class="card-text"><i class="fas fa-user"></i>&nbsp;&nbsp;<strong>Vedant Mehta</strong></p>
-				    <p class="card-text"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;<strong>Admin</strong></p>
-				    <p class="card-text"><i class="far fa-clock"></i>&nbsp;&nbsp;Last Login <strong>xxxx-xx-xx</strong></p>
+				    <p class="card-text"><i class="fas fa-user"></i>&nbsp;&nbsp;<strong><?php echo $_SESSION['username']?></strong></p>
+				    <p class="card-text"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;<strong><?php echo $_SESSION['usertype']?></strong></p>
+				    <p class="card-text"><i class="far fa-clock"></i>&nbsp;&nbsp;Last Login <strong><?php echo $_SESSION['last_login']?></strong></p>
 				    <a href="#" class="btn btn-primary"><i class="fas fa-user-edit"></i>&nbsp;&nbsp;Edit Profile</a>
 				  </div>
 				</div>
@@ -73,7 +87,7 @@
 		    </div>
 		</div>
 		<div class="col-md-4">
-			<div class="card " style="width: 21rem;">
+			<div class="card mx-auto " style="width: 20rem;">
 		      <div class="card-body">
 		        <h5 class="card-title">Brands</h5>
 		        <p class="card-text">Here you can manage Brands and add new Brands</p>
@@ -83,7 +97,7 @@
 		    </div>
 		</div>
 		<div class="col-md-4">
-			<div class="card mx-auto" style="width: 21rem;">
+			<div class="card mx-auto" style="width: 20rem;">
 		      <div class="card-body">
 		        <h5 class="card-title">Products</h5>
 		        <p class="card-text">Here you can manage Products and add new Products</p>

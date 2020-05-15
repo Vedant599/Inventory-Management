@@ -32,8 +32,8 @@ class User
 	public function createUserAccount($username,$email,$password,$usertype)
 	{
 		//to save our application from external sql attack we use prepared statement
-		if ($this->checkUser($email) ) {
-			return "Email Already Exist";
+		if ($this->checkUser($email)) {
+			return "Email_Already_Exist";
 		}
 		else
 		{
@@ -45,11 +45,11 @@ class User
 			$pre_stmt->bind_param("sssssss",$username,$email,$hash_pass,$usertype,$date,$date,$notes);
 			$result=$pre_stmt->execute() or die($this->conn->error);
 			if ($result) {
-				return $this->conn->insert_id;
+				return "Done";
 			}
 			else
 			{
-				return "Some Error";
+				return "Some_Error";
 			}
 		}
 		
@@ -61,7 +61,7 @@ class User
 		{
 			date_default_timezone_set("Asia/Calcutta");
 			$date=date("Y-m-d h:i:s");
-			$pre_stmt=$this->conn->prepare("SELECT id,username,password,last_login FROM user WHERE email=?");
+			$pre_stmt=$this->conn->prepare("SELECT id,username,password,last_login,usertype FROM user WHERE email=?");
 			$pre_stmt->bind_param("s",$email);
 			$pre_stmt->execute() or die($this->conn->error);
 			$result=$pre_stmt->get_result();
@@ -72,6 +72,7 @@ class User
 				{
 					$_SESSION['userid']=$row["id"];
 					$_SESSION['username']=$row["username"];
+					$_SESSION['usertype']=$row["usertype"];
 					$_SESSION['last_login']=$row["last_login"];
 					$pre_stmt=$this->conn->prepare("UPDATE user SET last_login = ? WHERE email= ?");
 					$pre_stmt->bind_param("ss",$date,$email);
@@ -79,11 +80,6 @@ class User
 					if ($result) {
 						return 1;
 					}
-					else
-					{
-						return 0;
-					}
-
 				}
 				else
 				{
@@ -104,5 +100,6 @@ class User
 
 // $user = new User();
 // echo $user->userLogin("ganapati@gmail.com","123456");
-// // echo $_SESSION['username'];
+// echo $user->createUserAccount("Vedant599","vedantmehta.tech@gmail.com","Vedant2001@99","Admin");
+// echo $_SESSION['username'];
 ?>

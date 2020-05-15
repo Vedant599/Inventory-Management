@@ -7,7 +7,7 @@ class Database
 	private $conn;
 	public function connect()
 	{
-		include("constants.php");
+		include_once("constants.php");
 		$this->conn = new Mysqli(HOST,USER,PASS,DB,PORT_NO);
 		if ($this->conn) {
 			return $this->conn;

@@ -6,11 +6,20 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#"><i class="fa fa-home"></i>&nbsp;Home</a>
+        <a class="nav-link" href="dashboard.php"><i class="fa fa-home"></i>&nbsp;Home</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#"><i class="fa fa-user-slash"></i>&nbsp;Logout</a>
-      </li>
+      <?php
+
+      if (isset($_SESSION['userid']))
+       {?>
+          <li class="nav-item active">
+            <a class="nav-link" href="logout.php"><i class="fa fa-user-slash"></i>&nbsp;Logout</a>
+          </li>
+        <?php
+      }
+
+      ?>
+      
     </ul>
   </div>
 </nav>
